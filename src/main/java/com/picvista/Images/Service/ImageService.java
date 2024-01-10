@@ -17,7 +17,16 @@ public class ImageService {
         return imageRepository.insert(image).getImageId();
     }
 
+    public String deleteImage(String id){
+        imageRepository.deleteById(id);
+        return id;
+    }
+
     public Page<Image> findAllByPage(Pageable pageable){
         return imageRepository.findAll(pageable);
+    }
+
+    public Page<Image> findAllImagesByAuthor(Pageable pageable, String author) {
+        return imageRepository.findAllByAuthor(author, pageable);
     }
 }

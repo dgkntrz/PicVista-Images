@@ -39,4 +39,19 @@ public class ImageController {
         return imageService.findAllByPage(pageable);
     }
 
+    @GetMapping("/getImagesByAuthor/{author}")
+    public Page<Image> findAllImagesByAuthor (@RequestParam(defaultValue = "0") int page,
+                                       @RequestParam(defaultValue = "3") int sizePerPage,
+                                       @RequestParam(defaultValue = "ID") SortField sortField,
+                                       @RequestParam(defaultValue = "DESC") Sort.Direction sortDirection,
+                                        @PathVariable String author) {
+        Pageable pageable = PageRequest.of(page, sizePerPage, sortDirection, sortField.getDatabaseFieldName());
+        return imageService.findAllImagesByAuthor(pageable, author);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public String deleteImage (@PathVariable String id) {
+        return imageService.deleteImage(id);
+    }
+
 }
